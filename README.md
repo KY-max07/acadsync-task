@@ -2,7 +2,7 @@
 
 AcadSync is a modern, full-stack School Management System designed to streamline administrative operations for educational institutions. It offers a comprehensive solution for managing users, subscriptions, and role-based access to specialized portals (Student, Teacher, School Admin).
 
-## 🚀 Key Features
+## Key Features
 
 - **Dynamic Landing Page**: Responsive design with pricing toggles and feature showcases.
 - **Multi-Step Registration Wizard**: A seamless onboarding flow collecting user details, plan selection, and payment processing.
@@ -18,7 +18,7 @@ AcadSync is a modern, full-stack School Management System designed to streamline
 - **Secure Authentication**: JWT-based auth with protected routes and persistent login state.
 - **Responsive Design**: Fully optimized for Mobile, Tablet, and Desktop.
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Frontend (Client)
 
@@ -40,7 +40,7 @@ AcadSync is a modern, full-stack School Management System designed to streamline
 - **Validation**: `zod` for request validation
 - **Utilities**: `dotenv` for environment configuration
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 acadsync/
@@ -65,7 +65,7 @@ acadsync/
 └── README.md               # Project Documentation
 ```
 
-## 👣 User Workflow
+## User Workflow
 
 1.  **Landing & Discovery**:
     - Users visit the landing page to view features and pricing.
@@ -89,37 +89,37 @@ acadsync/
     - **My Purchases**: Users can view current plan details, renewal dates, and upgrade their subscription.
     - **Admin**: System admins can log in to `/admin` to manage users and update global pricing configurations.
 
-## 📡 API Reference
+## API Reference
 
 ### Authentication (`/api/auth`)
 
-| Method | Endpoint                      | Description                                    | Protected |
-| :----- | :---------------------------- | :--------------------------------------------- | :-------- |
-| `POST` | `/register`                   | Register a basic user (without sub).           | No        |
-| `POST` | `/register-with-subscription` | Register user + create subscription + payment. | No        |
-| `POST` | `/login`                      | Authenticate user and return JWT.              | No        |
+| Method | Endpoint                      | Description                                    | Protected | Request Body / Params                                                                                                                |
+| :----- | :---------------------------- | :--------------------------------------------- | :-------- | :----------------------------------------------------------------------------------------------------------------------------------- |
+| `POST` | `/register`                   | Register a basic user.                         | No        | `{ name, email, password, phoneNumber, organizationType }`                                                                           |
+| `POST` | `/register-with-subscription` | Register user + create subscription + payment. | No        | `{ name, email, password, phoneNumber, organizationType, subscriptionPlan, paymentMethod, amount, billingCycle?, portalsIncluded? }` |
+| `POST` | `/login`                      | Authenticate user.                             | No        | `{ email, password }`                                                                                                                |
 
 ### Subscription (`/api/subscription`)
 
-| Method | Endpoint   | Description                              | Protected |
-| :----- | :--------- | :--------------------------------------- | :-------- |
-| `GET`  | `/me`      | Get current user's subscription details. | **Yes**   |
-| `POST` | `/upgrade` | Upgrade plan or change billing cycle.    | **Yes**   |
+| Method | Endpoint   | Description                      | Protected | Request Body / Params                                              |
+| :----- | :--------- | :------------------------------- | :-------- | :----------------------------------------------------------------- |
+| `GET`  | `/me`      | Get current user's subscription. | **Yes**   | -                                                                  |
+| `POST` | `/upgrade` | Upgrade plan or change billing.  | **Yes**   | `{ planId, billingCycle, portalsIncluded, paymentMethod, amount }` |
 
 ### Admin (`/api/admin`)
 
-| Method   | Endpoint     | Description                             | Protected       |
-| :------- | :----------- | :-------------------------------------- | :-------------- |
-| `GET`    | `/users`     | Get all users with subscription status. | **Yes (Admin)** |
-| `DELETE` | `/users/:id` | Delete a user and their data.           | **Yes (Admin)** |
-| `GET`    | `/pricing`   | Get current pricing configuration.      | No              |
-| `PUT`    | `/pricing`   | Update pricing plans and role costs.    | **Yes (Admin)** |
+| Method   | Endpoint     | Description                             | Protected       | Request Body / Params  |
+| :------- | :----------- | :-------------------------------------- | :-------------- | :--------------------- |
+| `GET`    | `/users`     | Get all users with subscription status. | **Yes (Admin)** | -                      |
+| `DELETE` | `/users/:id` | Delete a user.                          | **Yes (Admin)** | `id` (URL Param)       |
+| `GET`    | `/pricing`   | Get current pricing config.             | No              | -                      |
+| `PUT`    | `/pricing`   | Update pricing plans.                   | **Yes (Admin)** | `{ plans, rolePrice }` |
 
 ### Pricing (`/api/pricing`)
 
-| Method | Endpoint     | Description                                | Protected |
-| :----- | :----------- | :----------------------------------------- | :-------- |
-| `POST` | `/calculate` | Calculate price based on plan/roles/cycle. | No        |
+| Method | Endpoint     | Description                | Protected | Request Body / Params                                                    |
+| :----- | :----------- | :------------------------- | :-------- | :----------------------------------------------------------------------- |
+| `POST` | `/calculate` | Calculate price breakdown. | No        | `{ subscriptionType, selectedPortals, selectedFeatures, billingCycle? }` |
 
 ## ⚙️ Setup & Installation
 
