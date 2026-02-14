@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Instrument Serif", "serif";
+  --font-body: "Space Grotesk", "sans-serif";
+}
+
+:root {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: #000000;
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+Button{
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  padding: 10px;
+}
+Button:hover{
+  background-color: #232222;
+  color: white;
+}
+
