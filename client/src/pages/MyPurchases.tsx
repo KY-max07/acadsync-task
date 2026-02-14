@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSubscription } from '../hooks/useSubscription';
 import { usePricing } from '../hooks/usePricing';
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle, CreditCard, ArrowRight, Loader2 } from 'lucide-react';
+import { CheckCircle, Loader2 } from 'lucide-react';
 
 
 const MyPurchases = () => {
@@ -58,8 +58,6 @@ const MyPurchases = () => {
     };
 
     if (loading || !pricingConfig) return <div className="p-8 flex justify-center"><Loader2 className="animate-spin" /></div>;
-
-    const isYearly = subscription?.billingCycle === 'yearly';
 
     const isUpgradeAllowed = (targetPlanId: string, targetCycle: 'monthly' | 'yearly') => {
         const currentPlan = subscription?.subscriptionType;

@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import { useTheme } from '../context/ThemeContext';
 import { SubscriptionContext } from '../context/SubscriptionContext';
 import { LayoutDashboard, LogOut, GraduationCap, BookOpen, School, Menu, X } from 'lucide-react';
 
