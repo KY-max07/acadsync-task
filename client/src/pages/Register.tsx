@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate, Link } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
-import { ChevronRight, CreditCard, ShieldCheck } from 'lucide-react';
+import { ChevronRight, CreditCard, ShieldCheck, Eye, EyeOff } from 'lucide-react';
 import api from '../services/api';
 
 // --- Zod Schemas ---
@@ -40,6 +40,7 @@ interface Plan {
 
 const Register = () => {
   const [step, setStep] = useState(1);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState<Partial<Step1Data>>({});
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
@@ -327,11 +328,20 @@ const Register = () => {
               </div>
               <Input
                 label="Password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 placeholder="••••••••"
                 error={errors.password?.message}
                 {...register('password')}
                 className="rounded-none border-black focus:ring-0 focus:border-black shadow-none border-b-2 border-t-0 border-x-0 px-0 bg-transparent"
+                endIcon={
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="text-gray-500 hover:text-black focus:outline-none"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                }
               />
               
               <div className="pt-6">

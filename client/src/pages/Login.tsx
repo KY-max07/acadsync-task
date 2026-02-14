@@ -5,7 +5,8 @@ import { useAuth } from '../hooks/useAuth';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -18,6 +19,7 @@ const Login = () => {
   const { login, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -68,11 +70,20 @@ const Login = () => {
 
             <Input
               label="Password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               placeholder="••••••••"
               error={errors.password?.message}
               {...register('password')}
               className="rounded-none border-black focus:ring-0 focus:border-black text-lg py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+              endIcon={
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="text-gray-500 hover:text-black focus:outline-none"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              }
             />
 
             {errors.root && (
